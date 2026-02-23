@@ -244,4 +244,4 @@ Changes are tracked in the [changelog](https://github.com/bvaughn/react-virtuali
 
 ## License
 
-_react-virtualized_ is available under the MIT License.
+_react-virtualized_ is available under the MIT License.\n\n---\n\nMaintained by @opensourceframework in the [monorepo](https://github.com/riceharvest/opensourceframework).
