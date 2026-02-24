@@ -49,25 +49,49 @@ function getMarkup({headerElements, documentOffset, renderFn, ...props} = {}) {
 
 function simulateWindowScroll({scrollX = 0, scrollY = 0}) {
   document.body.style.height = '10000px';
-  window.scrollX = scrollX;
-  window.scrollY = scrollY;
-  document.dispatchEvent(new window.Event('scroll', {bubbles: true}));
+  Object.defineProperty(window, 'scrollX', {
+    value: scrollX,
+    configurable: true,
+  });
+  Object.defineProperty(window, 'scrollY', {
+    value: scrollY,
+    configurable: true,
+  });
+  window.dispatchEvent(new window.Event('scroll', {bubbles: true}));
   document.body.style.height = '';
 }
 
 function simulateWindowResize({height = 0, width = 0}) {
-  window.innerHeight = height;
-  window.innerWidth = width;
-  document.dispatchEvent(new window.Event('resize', {bubbles: true}));
+  Object.defineProperty(window, 'innerHeight', {
+    value: height,
+    configurable: true,
+  });
+  Object.defineProperty(window, 'innerWidth', {
+    value: width,
+    configurable: true,
+  });
+  window.dispatchEvent(new window.Event('resize', {bubbles: true}));
 }
 
 describe('WindowScroller', () => {
   // Set default window height and scroll position between tests
   beforeEach(() => {
-    window.scrollY = 0;
-    window.scrollX = 0;
-    window.innerHeight = 500;
-    window.innerWidth = 500;
+    Object.defineProperty(window, 'scrollX', {
+      value: 0,
+      configurable: true,
+    });
+    Object.defineProperty(window, 'scrollY', {
+      value: 0,
+      configurable: true,
+    });
+    Object.defineProperty(window, 'innerHeight', {
+      value: 500,
+      configurable: true,
+    });
+    Object.defineProperty(window, 'innerWidth', {
+      value: 500,
+      configurable: true,
+    });
   });
 
   // Starts updating scrollTop only when the top position is reached
