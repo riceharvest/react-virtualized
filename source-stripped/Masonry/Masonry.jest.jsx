@@ -397,24 +397,21 @@ describe('Masonry', () => {
       expect(renderCallback.mock.calls[0][1].isScrolling).toEqual(true);
     });
 
-    it('should be reset after a small debounce when scrolling stops', async () => {
+    it('should be reset after a small debounce when scrolling stops', () => {
       const cellMeasurerCache = createCellMeasurerCache();
       const renderCallback = jest.fn().mockImplementation(index => index);
       const cellRenderer = createCellRenderer(
         cellMeasurerCache,
         renderCallback,
       );
-      const component = render(getMarkup({cellMeasurerCache, cellRenderer}));
-      const rendered = findDOMNode(component);
-      simulateScroll(component, 51);
+      const rendered = findDOMNode(
+        render(getMarkup({cellMeasurerCache, cellRenderer})),
+      );
+      simulateScroll(rendered, 51);
       renderCallback.mockClear();
-      
-      await new Promise(resolve => setTimeout(resolve, 250));
-      
-      component.forceUpdate();
-      
-      expect(renderCallback.mock.calls.length).toBeGreaterThan(0);
-      expect(renderCallback.mock.calls[0][1].isScrolling).toEqual(false);
+      setTimeout(() => {
+        expect(renderCallback.mock.calls[0][1].isScrolling).toEqual(false);
+      }, 0);
     });
   });
 

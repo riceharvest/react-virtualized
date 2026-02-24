@@ -2514,7 +2514,7 @@ describe('Grid', () => {
       expect(console.warn).toHaveBeenCalledWith(
         'Rendered cell should include style property for positioning.',
       );
-      expect(console.warn).toHaveBeenCalled();
+      expect(console.warn).toHaveBeenCalledTimes(1);
     });
 
     it('should warn about CellMeasurer measured cells that forget to include the :style property', () => {
@@ -2549,7 +2549,7 @@ describe('Grid', () => {
       expect(console.warn).toHaveBeenCalledWith(
         'Rendered cell should include style property for positioning.',
       );
-      expect(console.warn).toHaveBeenCalled();
+      expect(console.warn).toHaveBeenCalledTimes(1);
     });
   });
 
